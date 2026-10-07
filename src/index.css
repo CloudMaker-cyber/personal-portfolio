@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/*
+ * 全站设计令牌（Tailwind v4 的 @theme 写法）
+ *
+ * 这里定义的每一个变量都会自动变成可用的类名：
+ *   --color-ember  ->  bg-ember / text-ember / border-ember
+ *   --font-mono    ->  font-mono
+ * 所以改配色只需要动这一个文件，不用去各个组件里找。
+ */
+@theme {
+  /* 字体：拉丁字母用 Geist，中文自动回退到系统字体 */
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, "Microsoft YaHei", monospace;
+
+  /* 中性色阶：底、面、线、主文字、次文字、弱文字 */
+  --color-canvas: #0a0a0a;
+  --color-surface: #101011;
+  --color-hairline: #232326;
+  --color-ink: #f4f4f5;
+  --color-muted: #a3a3ad;
+  --color-faint: #71717a;
+
+  /* 强调色：全站只有这一个色系（ burnt orange -> amber 渐变） */
+  --color-ember: #e0663a;
+  --color-amber: #e8a33d;
+
+  /* 缓动曲线：先快后慢，比默认 ease-out 更像"物理"的减速 */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 键盘 Tab 到任何可点元素时，画出清晰的强调色描边（无障碍要求） */
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-ember) 35%, transparent);
+    color: var(--color-ink);
+  }
+}
+
+/*
+ * 顶部滚动进度条：纯 CSS 滚动驱动动画，没有写一行 JS 监听 scroll。
+ * 浏览器不支持 animation-timeline 时，opacity 保持 0，整条线不出现（渐进增强）。
+ */
+.scroll-progress {
+  opacity: 0;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      opacity: 1;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      animation: scroll-progress-grow linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+@keyframes scroll-progress-grow {
+  to {
+    transform: scaleX(1);
+  }
+}
