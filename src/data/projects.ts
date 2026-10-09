@@ -39,8 +39,7 @@ export const projects: Project[] = [
       '整条链路自己走了一遍：文案与数据全部抽到 src/data 下的三个文件，组件只负责渲染，改内容不用动代码；滚动浮现用原生 IntersectionObserver 加 CSS 滚动时间线实现，没有引入动画库；配色、字体、缓动统一写在 Tailwind v4 的 @theme 令牌里，换主题只改一处。',
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Vercel'],
     image: '/images/portfolio.jpg',
-    // 部署完成后回填线上地址
-    demoUrl: '',
+    demoUrl: 'https://personal-portfolio-virid-nine-27.vercel.app',
     repoUrl: 'https://github.com/CloudMaker-cyber/personal-portfolio',
   },
 ];

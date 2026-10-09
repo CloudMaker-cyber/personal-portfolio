@@ -2,7 +2,7 @@
 
 唐诗涵的个人作品集，单页静态站点：首屏自我介绍、关于我与技能清单、项目展示、联系方式。
 
-线上地址：部署后补充
+线上地址：https://personal-portfolio-virid-nine-27.vercel.app
 
 ## 技术栈
 
