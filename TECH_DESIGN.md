@@ -35,7 +35,7 @@ src/
     Section.tsx     区块外壳：宽度/留白/锚点 id/scroll-mt/标题排版
     About.tsx       关于我
     ProjectCard.tsx 导出 ProjectFeature（大版式）与 ProjectTile（小版式）
-    Projects.tsx    把数组第一条交给大版式，其余给小版式
+    Projects.tsx    把数组第一条交给大版式，其余给小版式；数组为空时显示一句提示而不是报错
     Contact.tsx     联系
     Footer.tsx      页脚
     Reveal.tsx      滚动进入视口时淡入上移
@@ -48,13 +48,18 @@ src/
   index.css         Tailwind 引入 + 全部设计令牌 + 进度条动画
 
 public/
-  images/           hero.jpg 与 project-1/2/3.jpg（AI 生成的占位视觉，待替换）
+  images/           hero.jpg（首屏静物配图）、portfolio.jpg（项目截图，1400x771）
+  favicon.svg       唐 字标（矢量，支持 SVG 图标的浏览器用）
+  favicon-32.png    同一图标的位图版，给不支持 SVG favicon 的浏览器兜底
+  apple-touch-icon.png  iPhone 加主屏幕用，180x180，由系统套圆角蒙版
 
 ## 图片策略
 - 首屏图 `loading="eager"` + `fetchPriority="high"`（它是首屏最大元素，优先加载）
 - 其余图片 `loading="lazy"`
-- 全部压成 JPEG（宽 900-1400px，质量 78），四张合计约 190 KB
-- hero.jpg 作为正式静物配图使用（表达氛围，不冒充本人照片或产品截图）；project-1/2/3.jpg 仍是临时素材，**项目截图必须是真实产品画面**，发布前替换
+- 内容图统一压成 JPEG（宽 900-1400px，质量 78-82），hero.jpg 与 portfolio.jpg 各约 57 KB
+- hero.jpg 是**正式**静物配图：它表达氛围，不冒充本人照片，也不冒充产品界面
+- **项目截图必须是真实产品画面**，不要用生成图冒充界面（假截图比假简介更伤信任）
+- 原图不要留在 `public/` 里：这个目录下的每个文件都会被原样复制进 `dist/`，不管有没有代码引用它
 
 ## 换素材时要改哪里
 | 想改什么 | 改哪个文件 |
@@ -65,3 +70,4 @@ public/
 | 配色、字体、缓动曲线 | `src/index.css` 的 `@theme` |
 | 导航项文字与锚点 | `src/components/Header.tsx` 的 `navItems` |
 | 浏览器标签标题与搜索摘要 | `index.html` |
+| 标签页图标（favicon） | `public/favicon.svg` 与两张 PNG，图形改了要三处一起重画 |

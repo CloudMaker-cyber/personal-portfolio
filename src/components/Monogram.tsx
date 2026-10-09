@@ -8,13 +8,13 @@ import { profile } from '../data/profile';
  * 二是不会造出一个和你是谁无关的装饰图案。
  * aria-hidden 表示它是装饰，读屏软件会跳过（旁边已经有完整名字）。
  */
-export function Monogram({ className = '' }: { className?: string }) {
+export function Monogram() {
   const initial = profile.name.trim().charAt(0) || '?';
 
   return (
     <span
       aria-hidden="true"
-      className={`grid size-7 shrink-0 place-items-center border border-ember/70 font-mono text-[11px] leading-none text-ember ${className}`}
+      className="grid size-7 shrink-0 place-items-center border border-ember/70 font-mono text-[11px] leading-none text-ember"
     >
       {initial}
     </span>

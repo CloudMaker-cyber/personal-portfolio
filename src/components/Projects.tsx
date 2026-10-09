@@ -18,10 +18,14 @@ export function Projects() {
     <Section
       id="projects"
       title="项目"
-      lead="每个作品对应一张图、一段说明和外链。内容全部来自 src/data/projects.ts，加一条数据页面上就多一个作品。"
     >
-      {/* 大版式内部已经自己做了分段浮现，这里不再整体包一层 */}
-      <ProjectFeature project={featured} />
+      {/* 大版式内部已经自己做了分段浮现，这里不再整体包一层。
+          数组被清空时 featured 是 undefined，给一句诚实的说明而不是白屏 */}
+      {featured ? (
+        <ProjectFeature project={featured} />
+      ) : (
+        <p className="font-mono text-sm text-faint">项目还在整理中，整理好会陆续放上来。</p>
+      )}
 
       {others.length > 0 && (
         <div className="mt-20 border-t border-hairline pt-16">
